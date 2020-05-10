@@ -9,7 +9,7 @@ public class Feedback
 	private int Contact_Number;
 	private String Feedback_Category;
 	private String Feedback;
-	
+	 
 	public void UpdateGeneralFeedback(String Customer_Name, int Contact_Number, String Feedback_Category, String Feedback)
 	{
 		try

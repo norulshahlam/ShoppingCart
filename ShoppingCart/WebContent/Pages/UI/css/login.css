@@ -1,0 +1,23 @@
+body{
+  background-color: grey;
+}
+
+.login-text{
+  background: transparent;
+  border: 0 solid;
+  border-bottom: 1px solid #ddd;
+  color: white;
+  display: block;
+  margin: 1rem;
+  padding: .5rem;
+  transition: 250ms background ease-in;
+  width: calc(100% - 3rem);
+  text-align: center;
+  }  
+  .login-submit {
+        border: 1px solid black;
+        background: transparent;
+        margin: 1rem auto;
+        min-width: 100px;
+        padding: .25rem;
+  }

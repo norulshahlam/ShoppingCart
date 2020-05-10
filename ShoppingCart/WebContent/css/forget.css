@@ -1,0 +1,9 @@
+.forgot-form{
+  width:200px;
+  background:white;
+  text-align:center;
+  }  
+  .login-submit {
+        border: 1px solid black;
+        background: transparent;
+  }

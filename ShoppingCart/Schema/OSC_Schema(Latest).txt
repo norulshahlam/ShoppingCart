@@ -1,0 +1,303 @@
+ -- Customer Table --
+
+CREATE TABLE Customers
+(
+   Customer_ID NUMBER(4),
+   Customer_Name VARCHAR2(50),
+   Username VARCHAR2(50) NOT NULL,
+   Password VARCHAR2(50) NOT NULL,
+   Email VARCHAR2(50) NOT NULL,
+   Gender CHAR(1),
+   DOB DATE,
+   Contact_1 NUMBER(8),
+   Contact_2 NUMBER(8),
+   Payment_Method VARCHAR2(20),
+   Address_1 VARCHAR2(120),
+   Address_2 VARCHAR2(120),
+   CONSTRAINT Customers_PK Primary Key (Customer_ID),
+   CONSTRAINT Customers_UQ UNIQUE (Username)
+)
+
+-----------------------------------------------------
+
+         -- Cart Table -- 
+CREATE TABLE Cart
+(
+  Cart_ID NUMBER(4),
+  Customer_ID NUMBER(4),
+  CONSTRAINT Cart_Pk PRIMARY KEY (Cart_ID),
+  CONSTRAINT Cart_Fk FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID)
+)
+
+-----------------------------------------------------
+       -- Order-Status --
+
+CREATE TABLE Order_Status
+(
+  Status_ID NUMBER(2),
+  Status_Name VARCHAR2(20),
+  CONSTRAINT OrderStat_Pk PRIMARY KEY (Status_ID)
+)
+
+INSERT INTO Order_Status VALUES (1,'PROCESSING');
+INSERT INTO Order_Status VALUES (2,'READY-FOR-SHIPMENT');
+INSERT INTO Order_Status VALUES (3,'IN-SHIPMENT');
+INSERT INTO Order_Status VALUES (4,'COMPLETED');
+COMMIT;
+
+-----------------------------------------------------
+      -- Orders --
+CREATE TABLE Orders
+(
+  Order_ID NUMBER(4),
+  Cart_ID NUMBER(4),
+  Address VARCHAR(120),
+  Total_Price NUMBER(7,2),
+  Status_ID NUMBER(2),
+  CreatedOn DATE,
+  UpdatedOn DATE,
+  CONSTRAINT Orders_Pk PRIMARY KEY (Order_ID),
+  CONSTRAINT Orders_fkCart FOREIGN KEY (Cart_ID) REFERENCES Cart(Cart_ID)
+)
+
+---------------------------------------------------
+      -- Products Table --
+
+
+
+CREATE TABLE Products
+(
+  Product_ID NUMBER(4),
+  Product_Name VARCHAR2(50),
+  Product_Desc VARCHAR2(200),
+  Price NUMBER(7,2),
+  Quantity NUMBER(3),
+  Rating NUMBER(1),
+  Brand_ID NUMBER(4),
+  Product_Img BLOB,
+  Category_ID NUMBER(4),
+  Sub_Cat_ID NUMBER(4),
+  CreatedOn DATE,
+  UpdatedOn DATE,
+  DeletedOn DATE,
+  CONSTRAINT Products_pk PRIMARY KEY (Product_ID),
+  CONSTRAINT Products_fkBrand FOREIGN KEY (Brand_ID) REFERENCES Brands(Brand_ID),
+  CONSTRAINT Products_fkCat FOREIGN KEY(Category_ID) REFERENCES Category(Category_ID),
+  CONSTRAINT Products_fkSCat FOREIGN KEY(Sub_Cat_ID) REFERENCES Sub_Category(Sub_Cat_ID) 
+)
+
+ ** SEQUENCE **
+CREATE SEQUENCE Products_SEQ
+MINVALUE 1000
+MAXVALUE 9999
+START WITH 1001
+INCREMENT BY 1
+CACHE 10;
+-------------------------------------------------
+         -- Category Table --
+
+CREATE TABLE CATEGORY
+(
+   Category_ID NUMBER(4),
+   Category_Name VARCHAR2(50),
+   CONSTRAINT Category_pk PRIMARY KEY (Category_ID)
+   CONSTRAINT Category_Unq UNIQUE (Category_Name)
+)
+
+ ** SEQUENCE **
+CREATE SEQUENCE Category_SEQ
+MINVALUE 100
+MAXVALUE 999
+START WITH 101
+INCREMENT BY 1
+CACHE 10;
+
+-------------------------------------------------
+       -- Sub Category Table -- 
+
+CREATE TABLE Sub_Category
+(
+  Sub_Cat_ID NUMBER(4),
+  Category_ID NUMBER(4),
+  Sub_CatName VARCHAR2(50),
+  CONSTRAINT Sub_CatPk PRIMARY KEY (Sub_Cat_ID),
+  CONSTRAINT Sub_CatFk FOREIGN KEY (Category_ID) REFERENCES Category(Category_ID)
+)
+
+CREATE SEQUENCE SubCat_Seq
+MINVALUE 300
+MAXVALUE 999
+START WITH 301
+INCREMENT BY 1
+CACHE 10;
+------------------------------------------------
+         -- Brands Table -- 
+
+CREATE TABLE Brands
+(
+  Brand_ID NUMBER(4),
+  Brand_Name VARCHAR2(50),
+  Brand_Desc VARCHAR2(200),
+  Brand_Img BLOB,
+  CONSTRAINT Brands_Pk PRIMARY KEY (Brand_ID)
+)
+
+** SEQUENCE **
+CREATE SEQUENCE Brands_Seq
+MINVALUE 100
+MAXVALUE 999
+START WITH 100
+INCREMENT BY 10
+CACHE 10;
+
+Brands_Seq.NEXTVAL
+------------------------------------------------
+      -- Promotions Table --
+
+
+CREATE TABLE Promotions
+(
+  Promo_ID NUMBER(4),
+  Promo_Name VARCHAR2(50),
+  CreatedOn DATE,
+  DeletedOn DATE,
+  CONSTRAINT Promo_Pk PRIMARY KEY (Promo_ID)
+)
+
+ ** SEQUENCE **
+CREATE SEQUENCE Promo_Seq
+MINVALUE 10
+MAXVALUE 2000
+START WITH 10
+INCREMENT BY 10
+CACHE 10;
+
+INSERT INTO Promotions VALUES (Promo_Seq.NEXTVAL,'HARI-RAYA SALE',SYSDATE,'');
+INSERT INTO Promotions VALUES (Promo_Seq.NEXTVAL,'DEEPAVALI',SYSDATE,'');
+INSERT INTO Promotions VALUES (Promo_Seq.NEXTVAL,'CHRISTMAS',SYSDATE,'');
+INSERT INTO Promotions VALUES (Promo_Seq.NEXTVAL,'CHINESE NEW YEAR',SYSDATE,'');
+
+------------------------------------------------
+         -- Promotion-Items Table ---
+
+
+CREATE TABLE Promotion_Items
+(
+  Product_ID NUMBER(4),
+  Promo_ID NUMBER(4),
+  CreatedOn DATE,
+  DeletedOn DATE,
+  CONSTRAINT PromoItem_Fkpr FOREIGN KEY (Product_ID) REFERENCES Products(Product_ID),
+  CONSTRAINT PromoItem_Fkpm FOREIGN KEY (Promo_ID) REFERENCES Promotions(Promo_ID)
+) 
+
+------------------------------------------------
+         -- Cart-Items Table -- 
+
+CREATE TABLE Cart_Items
+(
+  Item_ID NUMBER(4),
+  Cart_ID NUMBER(4),
+  Product_ID NUMBER(4),
+  Price NUMBER(7,2),
+  CreatedOn DATE,
+  UpdatedOn DATE,
+  CONSTRAINT CItems_UQ UNIQUE (Item_ID),
+  CONSTRAINT CItems_FkC FOREIGN KEY (Cart_ID) REFERENCES Cart(Cart_ID),
+  CONSTRAINT Citems_FkP FOREIGN KEY (Product_ID) REFERENCES Products(Product_ID)
+)
+
+-----------------------------------------------
+         -- Feedback Table --
+
+
+CREATE TABLE Customer_Feedback
+(
+  Feedback_ID NUMBER(4),
+  Customer_ID NUMBER(4),
+  Product_ID NUMBER(4),
+  Rating NUMBER(1),
+  CONSTRAINT CFeed_Pk PRIMARY KEY (Feedback_ID),
+  CONSTRAINT CFeed_FkC FOREIGN KEY (Customer_ID) REFERENCES Customers(Customer_ID),
+  CONSTRAINT CFeed_FkP FOREIGN KEY (Product_ID) REFERENCES Products(Product_ID)
+)
+
+===================================================
+      -- Admin Table --
+
+CREATE TABLE Admin_User
+(
+  User_ID  NUMBER(4),
+  Username VARCHAR2(50) UNIQUE NOT NULL,
+  password VARCHAR2(50) NOT NULL,
+  Role     CHAR(1) NOT NULL,
+  CONSTRAINT Admin_Pk PRIMARY KEY (User_ID)
+)
+
+
+
+BEGIN
+INSERT INTO Admin_User VALUES (1111,'JJ','jj123','A');
+INSERT INTO Admin_User VALUES (1112,'AMBUJ','AMBUJ123','A');
+INSERT INTO Admin_User VALUES (1113,'SHA','SHA123','A');
+INSERT INTO Admin_User VALUES (1114,'SYED','SYED123','A');
+INSERT INTO Admin_User VALUES (1115,'FARID','FARID123','A');
+INSERT INTO Admin_User VALUES (1116,'JOHN','JOHN123','A');
+INSERT INTO Admin_User VALUES (1117,'HARITHA','HARI123','A');
+END;
+
+====================================================
+
+         -- User Table --
+
+CREATE TABLE Users
+(
+  Name VARCHAR2(50),
+  Email VARCHAR2(50),
+  Username VARCHAR2(50) UNIQUE,
+  Password VARCHAR2(50),
+  Role_id CHAR(1) NOT NULL,
+)
+
+==============================================================
+    -- Card Details -- 
+
+CREATE TABLE Card_Details
+(
+  CARDHOLDER_NAME VARCHAR2(20)NOT NULL,
+  CARD_NUMBER VARCHAR2(40) primary key,
+  CVV  VARCHAR2(40) NOT NULL,
+  method varchar2(10)NOT NULL,
+  EXP_MONTH varchar2(10)NOT NULL,
+  EXP_YEAR NUMBER(4)NOT NULL
+)
+==============================================================
+
+      Delete Statements - Too clean up table
+
+
+ 1st - delete from products   
+ 2nd - delete from sub_category
+ 3rd - delete from category   
+ 4th - delete from Brands
+
+ =============================================================
+
+          Drop Sequences - Too clear of previous sequences
+
+Drop sequence 
+
+==============================================================
+
+index,Product_Name, Price, Category_Name, Sale_Date
+
+CREATE TABLE SalesTable
+(
+  Index NUMBER(4),
+  Product_Name VARCHAR2(50),
+  Category_Name VARCHAR2(50),
+  Sale_Date DATE,
+  CONSTRAINT Sales_pk PRIMARY KEY (Index),
+  CONSTRAINT Sales_fkPname FOREIGN KEY (Product_Name) REFERENCES Products (Product_Name),
+  CONSTRAINT Sales_fkCname FOREIGN KEY (Category_Name) REFERENCES Category (Category_Name)
+)

@@ -1,0 +1,163 @@
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+.image {
+  max-width: 450px;
+  max-height: 250px;
+}
+.search {
+  float: right;
+  padding: auto;
+  margin-top: 15px;
+  overflow: hidden;  
+}
+
+.two {
+  float: right;
+  }
+
+.table {
+  padding: -1px;
+  width : auto;
+  text-align:center;
+  background: transparent;
+}
+ .left{
+  float: left;
+  padding: 0px;
+  top:20px;
+  font-size:10px;
+  color: #808080;
+  background-color:  #E0FFFF;
+  
+}
+
+.welcome {
+  background-color:white;
+  border: 5px solid white;
+  color:black;
+  width: auto; 
+  height:20px; 
+  text-align:center;
+  font-size:18px;
+}
+
+.center{
+  float: left;
+  padding: 9px;
+  top:5px;
+  font-size:10px;
+  color: #808080;
+  background-color: #D3D3D3;
+  list-style:none;
+}
+
+.text{color:black;
+  font-size:15px;
+}
+
+
+.product-slider
+/*general styles*/
+{
+body{padding: 3em;background-color: #ccc;}
+html {box-sizing: border-box;}
+*, *:before, *:after {box-sizing: inherit;}
+}
+
+
+/*slideshow styles*/
+
+.slideshow {
+  width: 625px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: solid 1px white;
+}
+
+.slideshow-container {
+  width: 2500px;
+  font-size: 0;
+  transition: 1s ease;
+  height: 225px;
+}
+
+.slideshow-container:hover {
+  animation-play-state: paused;
+}
+
+img, .text-container {
+  width: 625px;
+  height: auto;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+}
+
+.text-container {
+  height: 225px;
+  position: relative;
+}
+
+p {
+  position: relative;
+  top: -45%;
+  padding: 5px;
+}
+
+.slide {
+  animation: slide 15s ease infinite;
+}
+
+@keyframes slide {
+  
+  12.5% {
+    transform: translateX(0%);
+  }
+  
+  25% {
+    transform: translateX(-25%);
+  }
+  
+  37.5% {
+    transform: translateX(-25%);
+  }
+  
+  50% {
+    transform: translateX(-50%);
+  }
+  
+  62.5% {
+    transform: translateX(-50%);
+  }
+  
+  80% {
+    transform: translateX(-75%);
+  }
+
+.p {
+  margin-top: 140px;
+  text-align: center;
+}

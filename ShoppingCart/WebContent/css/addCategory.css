@@ -1,0 +1,39 @@
+label{
+		display:block;
+		width: 180px;
+		border: 2px solid green;	
+		margin-top: 10px;
+		text-align:center;
+	}
+	
+label:hover{
+		text-decoration:underline;
+	}
+	
+#item{
+		position:absolute;
+		left:-999em;
+	}
+.subcat{
+		width: 20em;
+		max-height: 10em;
+		opacity:3;
+		height: 10em;
+		overflow:hidden;
+		transition:opacity 1s linear;
+		padding-top: 10px;
+	}
+	
+#item[type=checkbox]:not(:checked) + div{
+		opacity:0;
+		max-height:0;
+		border:none;
+	}
+
+.contain {
+		height:14em;
+		
+	}
+body{
+	background: white;
+}

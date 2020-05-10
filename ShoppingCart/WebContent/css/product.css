@@ -1,0 +1,76 @@
+.row{
+  display: table;
+  width: 720px;
+  margin: auto;
+  background: transparent;
+}
+.col{
+  float: left;
+  position: relative;
+  min-height: 1px;
+  box-sizing: border-box;
+}
+.outerfit{
+  overflow:hidden;
+  position:relative;
+  width: 239px;
+  height: 200px;
+  font-family: 'Open Sans',arial,sans-serif;
+  font-size: 17px;
+  border-bottom: 10px solid transparent;
+  border-left: 100px solid transparent;
+  border-top:10px solid transparent;
+}
+.outerfit .img{
+  margin:0 auto;
+  border: solid 1px transparent;
+  margin: -1px;
+  background-color: #ccc;
+  position:absolute;
+  left:10px;
+  top:10px;
+}
+.outerfit .title{
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  font-weight: bold;
+}
+
+.outerfit .shortdesc{
+  font-size:11px;
+  position:absolute;
+  width: 150px;
+  top: 174px;
+  left: 19px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #888;
+}
+.outerfit .overtop{
+  background:#d9d9d9;
+  position:relative;
+  height:400px;
+  cursor:pointer;
+}
+
+.outerfit .next{
+  margin-top:70px;
+  z-index:2;
+}
+.outerfit .fill_a{
+  background: white;
+  position:relative;
+  height:200px;
+}
+@media (max-width: 480px) {
+ .col{
+ width:100%;
+}
+}
+img{
+  display: block;
+  height: 142px;
+  width: 270px; 
+}
